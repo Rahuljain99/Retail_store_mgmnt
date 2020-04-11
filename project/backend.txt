@@ -1,0 +1,144 @@
+create table employee(
+ssn int,
+fname varchar(20),
+lname varchar (20),
+designation varchar (20),
+store_id int,
+phone_no int,
+dob date);
+
+create table store(
+store_id int,
+phone int,
+street varchar(20),
+city varchar (20),
+state varchar (20),
+zip int,
+mng_ssn int);
+
+create table product(
+product_id int,
+prod_name varchar(20),
+manf_date date,
+sell_price int,
+cost_price int);
+
+create table customer(
+customer_id int,
+name varchar (20),
+phone_num int);
+
+create table purchases(
+customer_id int,
+product_id int,
+store_id int,
+quantity int);
+
+create table supplier(
+supplier_id int,
+name varchar(20),
+contact_num int);
+
+create table supplies(
+supplier_id int,
+product_id int,
+store_id int,
+stock int);
+
+create table availability(
+product_id int,
+store_id int, primary key(product_id,store_id));
+
+alter table employee
+add primary key (ssn);
+
+alter table store
+add primary key (store_id);
+
+alter table product
+add primary key(product_id);
+
+alter table customer
+add primary key(customer_id);
+
+alter table purchases
+add primary key(customer_id,product_id,store_id);
+
+alter table supplier
+add primary key(supplier_id);
+
+alter table supplies
+add primary key(supplier_id,product_id,store_id);
+
+insert into employee values(10101, 'Rajat','Sharma','Cashier',123,9876341734,to_date('12/2/1980','dd/mm/yyyy'));
+insert into employee values(10102, 'Rakesh','Gupta','Manager',123,9873451734,to_date('11/3/1982','dd/mm/yyyy'));
+insert into employee values(10103, 'Anjali','Agarwal','Manager',125,9876758934,to_date('15/7/1984','dd/mm/yyyy'));
+insert into employee values(10104, 'Ramesh','Arora','Finance Head',125,7845341734,to_date('11/4/1978','dd/mm/yyyy'));
+insert into employee values(10105, 'Akshat','Shetty','Cashier',125,9876344534,to_date('22/6/1985','dd/mm/yyyy'));
+insert into employee values(10106, 'Sameer','Goel','HR',123,9876341876,to_date('12/1/1988','dd/mm/yyyy'));
+insert into employee values(10107, 'Sanjana','Mishra','HR',125,9872341734,to_date('1/8/1988','dd/mm/yyyy'));
+insert into employee values(10108, 'Kavya','Shenoy','Finance Head',123,9894721734,to_date('23/11/1989','dd/mm/yyyy'));
+insert into employee values(10109, 'Rachit','Singh','Sales Head',123,9876876514,to_date('16/12/1981','dd/mm/yyyy'));
+insert into employee values(10110, 'Priyanka','Kumar','Sales Head',125,9884134734,to_date('17/3/1985','dd/mm/yyyy'));
+
+insert into store values(123,6574829101,'Washington', 'Mumbai','Maharashtra',241991,10102);
+insert into store values(125,6574829101,'Vivekananda', 'Chennai','Tamil Nadu',241981,10103);
+
+insert into product values(101,'Perfect Bake Bread',to_date('20/3/2019','dd/mm/yyyy'),200,150);
+insert into product values(102,'Amul Milk',to_date('21/3/2019','dd/mm/yyyy'),100,70);
+insert into product values(103,'Lays Chips',to_date('01/04/2019','dd/mm/yyyy'),20,17);
+
+insert into customer values(21,'Suyash',8712340975);
+insert into customer values(22,'Shreya',8712323475);
+
+insert into purchases values(21,101,123,2);
+insert into purchases values(21,103,123,1);
+insert into purchases values(22,101,125,3);
+insert into purchases values(21,102,125,4);
+
+insert into supplier values(1001, 'Robert',4561093154);
+insert into supplier values(1002, 'Richard',4561233154);
+
+insert into supplies values(1001,101,123,1000);
+insert into supplies values(1001,102,123,5000);
+insert into supplies values(1001,103,123,2000);
+insert into supplies values(1002,101,125,3000);
+insert into supplies values(1002,102,125,4000);
+insert into supplies values(1002,103,125,2000);
+
+insert into availability values(101,123);
+insert into availability values(102,123);
+insert into availability values(103,123);
+insert into availability values(101,125);
+insert into availability values(102,125);
+insert into availability values(103,125);
+
+alter table employee
+add foreign key (store_id) references store(store_id);
+
+alter table store
+add foreign key (mng_ssn) references employee(ssn);
+
+alter table purchases
+add foreign key (customer_id) references customer(customer_id);
+
+alter table purchases
+add foreign key (product_id) references product(product_id);
+
+alter table purchases
+add foreign key (store_id) references store(store_id);
+
+alter table supplies
+add foreign key (supplier_id) references supplier(supplier_id);
+
+alter table supplies
+add foreign key (product_id) references product(product_id);
+
+alter table supplies
+add foreign key (store_id) references store(store_id);
+
+alter table availability
+add foreign key (product_id) references product(product_id);
+
+alter table availability
+add foreign key (store_id) references store(store_id);

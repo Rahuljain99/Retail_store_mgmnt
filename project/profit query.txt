@@ -1,0 +1,3 @@
+select sum(purchases.quantity*sprice) as sold from purchases,product where purchases.product_id=product.product_id;
+
+select sum(supplies.stock*cprice) as cost from supplies,product where supplies.product_id=product.product_id;

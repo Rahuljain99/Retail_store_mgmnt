@@ -1,0 +1,207 @@
+drop table employee cascade constraints;
+
+drop table store cascade constraints;
+
+drop table product cascade constraints;
+
+drop table customer cascade constraints;
+
+drop table purchases cascade constraints;
+
+drop table supplies cascade constraints;
+
+drop table supplier cascade constraints;
+
+drop table instore cascade constraints;
+
+create table employee(ssn varchar(10)primary key, dob date,
+designation varchar(10), store_id varchar(10), fname varchar(10),
+lname varchar(10), salary number);
+
+create table store(store_id varchar(10)primary key, phone 
+number, street varchar(10), city varchar(10), state varchar(10),
+zip varchar (6), mng_id varchar(10));
+
+create table product(product_id varchar(10)primary key,product_name 
+varchar(20), sprice number, cprice number);
+
+create table customer(customer_id varchar(10)primary key, first_name
+varchar(10), last_name varchar(10), phone_no number, flatno 
+varchar(5), building varchar(8), city varchar(10));
+
+create table purchases(customer_id varchar(10), product_id varchar(10),
+quantity number, from_store varchar (10), purchased_on date, primary key(customer_id,product_id,from_store));
+
+create table supplies(supplier_id varchar(10), product_id varchar(10),
+stock number, to_store varchar(10), supplied_on date, primary key(supplier_id,product_id,to_store));
+
+create table supplier(supplier_id varchar(10)primary key,
+sup_fname varchar(10),sup_lname varchar(10), shop_no varchar(3),
+street varchar(10), city varchar(10), state varchar(10));
+
+create table instore(store_id varchar(10), product_id varchar(10),
+availability number, primary key(store_id,product_id));
+
+
+insert into employee values('126854',to_date('24091984','ddmmyyyy'),'Cashier','00125','Ramesh','Sharma',10000);
+insert into employee values('127961',to_date('14051982','ddmmyyyy'),'Cashier','00137','Suresh','Thakkar',10000);
+insert into employee values('136655',to_date('18031970','ddmmyyyy'),'Salesman','00125','Rakesh','Shah',15000);
+insert into employee values('120255',to_date('07071996','ddmmyyyy'),'Cashier','00125','Bhuvanesh','Rastogi',10000);
+insert into employee values('139542',to_date('20061992','ddmmyyyy'),'Salesman','00125','Sarvesh','Patil',15000);
+insert into employee values('174520',to_date('18081989','ddmmyyyy'),'Salesman','00137','Aajesh','Saxena',15000);
+insert into employee values('029614',to_date('09101991','ddmmyyyy'),'Manager','00125','Prajesh','Singh',30000);
+insert into employee values('075961',to_date('31121983','ddmmyyyy'),'Manager','00137','Rajesh','Shetty',30000);
+insert into employee values('175209',to_date('05081987','ddmmyyyy'),'Salesman','00137','Danesh','Chohan',15000);
+
+insert into store values('00125',9547103685,'Wood','Jaipur','Rajasthan','305001','029614');
+insert into store values('00137',8641022863,'CP','New Delhi','Delhi','100603','075961');
+
+insert into product values('9543','Text Book',300,80);
+insert into product values('7920','Penut Butter',350,90);
+insert into product values('7860','Nutella',300,120);
+insert into product values('9853','Shampoo',125,30);
+insert into product values('0152','Maggi',40,10);
+insert into product values('7803','Pasta',60,15);
+insert into product values('5574','Tang',50,12);
+insert into product values('6935','Coffee',150,60);
+insert into product values('1458','Tea',325,140);
+insert into product values('8875','Shower gel',300,130);
+insert into product values('0250','Perfume',540,280);
+insert into product values('6775','Oreo',30,16);
+
+insert into customer values('84200','Prachiti','Thakkar',95840268,'1605','Tiara','Thane');
+insert into customer values('98562','Aditi','Bhosle',74203688,'2106','Fiona','Jaipur');
+insert into customer values('23547','Rashmi','Shah',7854552014,'103','Avon','Udaipur');
+insert into customer values('66301','Nidhi','Hari',9854126035,'901','Crown','Delhi');
+insert into customer values('45202','Maya','Prasad',9854126035,'036','Rivera','Udaipur');
+insert into customer values('77850','Yash','Patil',9785200696,'502','Penrose','Delhi');
+insert into customer values('99620','Somdeb','Doshetty',9968542069,'122','Kenora','Jaipur');
+insert into customer values('78560','Vishal','Chhaya',8875466302,'301','Broadway','Jaipur');
+insert into customer values('03695','Gaurav','Binani',8859740026,'403','Brookhil','Chennai');
+
+insert into supplier values('381','Happy','Singh','65','GB','Udupi','Karnataka');
+insert into supplier values('025','Rajit','Singh','15','PS','Bhopal','MP');
+insert into supplier values('106','Manpreet','Singh','03','BT','Lucknow','UP');
+
+insert into instore values('00137','9853',20);
+insert into instore values('00137','9543',8);
+insert into instore values('00137','0250',90);
+insert into instore values('00137','1458',30);
+insert into instore values('00137','7860',25);
+insert into instore values('00137','0152',60);
+insert into instore values('00137','7803',20);
+insert into instore values('00137','5574',95);
+insert into instore values('00137','6935',20);
+insert into instore values('00137','8875',25);
+insert into instore values('00137','6775',15);
+insert into instore values('00137','7920',60);
+insert into instore values('00125','9853',10);
+insert into instore values('00125','5574',2);
+insert into instore values('00125','8875',32);
+insert into instore values('00125','7803',12);
+insert into instore values('00125','0250',37);
+insert into instore values('00125','7920',60);
+insert into instore values('00125','7860',20);
+insert into instore values('00125','1458',15);
+
+insert into purchases values('84200','9543',2,'00125',to_date('05032019','ddmmyyyy'));
+insert into purchases values('84200','1458',3,'00137',to_date('23062018','ddmmyyyy'));
+insert into purchases values('84200','8875',1,'00125',to_date('12022019','ddmmyyyy'));
+insert into purchases values('23547','5574',1,'00137',to_date('11012019','ddmmyyyy'));
+insert into purchases values('23547','9543',3,'00125',to_date('23012019','ddmmyyyy'));
+insert into purchases values('03695','5574',2,'00137',to_date('15032019','ddmmyyyy'));
+insert into purchases values('99620','6935',4,'00125',to_date('16032019','ddmmyyyy'));
+insert into purchases values('99620','7920',2,'00137',to_date('17032019','ddmmyyyy'));
+insert into purchases values('45202','7920',1,'00125',to_date('18032019','ddmmyyyy'));
+insert into purchases values('78560','0152',1,'00137',to_date('19032019','ddmmyyyy'));
+insert into purchases values('66301','0250',6,'00125',to_date('20032019','ddmmyyyy'));
+
+insert into supplies values('381','9853',90,'00137',to_date('16032019','ddmmyyyy'));
+insert into supplies values('381','9543',50,'00137',to_date('15032019','ddmmyyyy'));
+insert into supplies values('381','0250',50,'00137',to_date('14032019','ddmmyyyy'));
+insert into supplies values('381','1458',70,'00137',to_date('13032019','ddmmyyyy'));
+insert into supplies values('381','7860',60,'00137',to_date('12032019','ddmmyyyy'));
+insert into supplies values('381','0152',40,'00137',to_date('11032019','ddmmyyyy'));
+insert into supplies values('381','7803',20,'00137',to_date('10032019','ddmmyyyy'));
+insert into supplies values('381','5574',90,'00137',to_date('09032019','ddmmyyyy'));
+insert into supplies values('381','6935',40,'00137',to_date('08032019','ddmmyyyy'));
+insert into supplies values('381','8875',80,'00137',to_date('07032019','ddmmyyyy'));
+insert into supplies values('025','6775',50,'00137',to_date('06032019','ddmmyyyy'));
+insert into supplies values('025','7920',60,'00137',to_date('05032019','ddmmyyyy'));
+insert into supplies values('025','9853',10,'00125',to_date('04032019','ddmmyyyy'));
+insert into supplies values('025','5574',60,'00125',to_date('03032019','ddmmyyyy'));
+insert into supplies values('025','8875',70,'00125',to_date('02032019','ddmmyyyy'));
+insert into supplies values('025','7803',30,'00125',to_date('01032019','ddmmyyyy'));
+insert into supplies values('106','0250',70,'00125',to_date('17032019','ddmmyyyy'));
+insert into supplies values('106','7920',80,'00125',to_date('18032019','ddmmyyyy'));
+insert into supplies values('106','7860',20,'00125',to_date('19032019','ddmmyyyy'));
+insert into supplies values('106','1458',55,'00125',to_date('20032019','ddmmyyyy'));
+
+
+
+
+alter table employee add foreign key(store_id) references store on delete cascade;
+
+alter table store add foreign key(mng_id) references employee on delete cascade;
+
+alter table purchases add foreign key(customer_id) references customer on delete cascade;
+
+alter table purchases add foreign key(product_id) references product on delete cascade;
+
+alter table purchases add foreign key(from_store) references store on delete cascade; 
+
+alter table supplies add foreign key(supplier_id) references supplier on delete cascade;
+
+alter table supplies add foreign key(product_id) references product on delete cascade;
+
+alter table supplies add foreign key(to_store) references store on delete cascade;
+
+alter table instore add foreign key(store_id) references store on delete cascade;
+
+alter table instore add foreign key(product_id) references product on delete cascade;
+
+
+
+create table ex_employee(ssn varchar2(10) not null,
+dob date,
+designation varchar2(10),
+store_id varchar2(10),
+fname varchar2(10),
+lname varchar2(10),
+salary number);
+
+create table ex_supplier(supplier_id varchar2(10) not null,
+sup_fname varchar2(10),
+sup_lname varchar2(10),
+shop_no varchar2(3),
+street varchar2(10),
+city varchar2(10),
+state varchar2(10));
+
+create or replace trigger del_emp
+before delete on employee
+for each row
+begin
+insert into ex_employee values(:old.ssn,
+:old.dob,
+:old.designation,
+:old.store_id,
+:old.fname,
+:old.lname,
+:old.salary);
+end;
+/
+
+create or replace trigger del_sup
+before delete on supplier
+for each row
+begin
+insert into ex_supplier values(:old.supplier_id,
+:old.sup_fname,
+:old.sup_lname,
+:old.shop_no,
+:old.street,
+:old.city,
+:old.state);
+end;
+/
